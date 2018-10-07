@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    job-name: my-job
+  name: my-job
+spec:
+  # It can use only v1.12(alpha) later.
+  # ttlSecondsAfterFinished: 120
+  backoffLimit: 5
+  activeDeadlineSeconds: 600
+  template:
+    metadata:
+      labels:
+        job-name: my-job
+    spec:
+      containers:
+      - command: ["echo", "Hello"]
+        image: alpine
+        imagePullPolicy: IfNotPresent
+        name: my-job
+      restartPolicy: OnFailure
