@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: my-service
+  name: my-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-service
+  template:
+    metadata:
+      labels:
+        app: my-service
+    spec:
+      containers:
+      - image: ryutah/sample
+        imagePullPolicy: IfNotPresent
+        name: my-service
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: my-service
+  name: my-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-service
+  ports:
+  - name: 80-8080
+    protocol: TCP
+    port: 80
+    targetPort: 8080
