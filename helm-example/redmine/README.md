@@ -1,0 +1,1 @@
+# Redmine example for helm
